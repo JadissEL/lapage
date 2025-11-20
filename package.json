@@ -1,0 +1,11 @@
+{
+  "name": "lapage-rapport",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "pdf": "node generate-pdf.js"
+  },
+  "dependencies": {
+    "puppeteer": "22.8.0"
+  }
+}

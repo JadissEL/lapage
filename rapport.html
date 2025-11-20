@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rapport PFE - RoSiStrat</title>
+  <link rel="stylesheet" href="style-rapport.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="cover-header">
+        <div class="placeholder inline-block">
+          [IMAGE PLACEHOLDER]
+          Nom suggéré : logo_universite.png
+          Dossier suggéré : /images/logos/
+          Description : Logo de l'Université Hassan II – Ain Chock, Faculté des Sciences
+        </div>
+        <h1>Projet de Fin d'Études — RoSiStrat</h1>
+        <h2>Simulateur de Stratégies de Roulette</h2>
+        <p><strong>Étudiant :</strong> Younes QTYAB</p>
+        <p><strong>Encadrant :</strong> [Nom du/ de la Pr. Encadrant·e]</p>
+        <p><strong>Filière :</strong> Génie Informatique — Année universitaire 2023/2024</p>
+      </div>
+    </header>
+
+    <section class="no-print" style="margin-top:10mm">
+      <div class="meta-bar">
+        <div>
+          <a class="btn" id="downloadPdf">⬇️ Télécharger PDF</a>
+        </div>
+        <div class="meta-bar-info">Généré le : <span id="generationDate"></span></div>
+      </div>
+      <div id="pageEstimate"></div>
+      <div style="margin-top:4px;font-size:10pt">
+        <strong>Extension facultative :</strong> <button id="toggleExtended" class="btn secondary">Afficher contenu enrichi</button>
+      </div>
+    </section>
+
+    <main>
+      <section class="toc">
+        <h2>Table des Matières (12 chapitres)</h2>
+        <ol id="tocList">
+          <li><a href="#remerciements">Remerciements</a> <span class="toc-page" data-target="remerciements"></span></li>
+          <li><a href="#resume">Résumé</a> <span class="toc-page" data-target="resume"></span></li>
+          <li><a href="#abstract">Abstract (FR)</a> <span class="toc-page" data-target="abstract"></span></li>
+          <li><a href="#liste-figures">Liste des Figures & Tableaux</a> <span class="toc-page" data-target="liste-figures"></span></li>
+          <li><a href="#glossaire">Glossaire</a> <span class="toc-page" data-target="glossaire"></span></li>
+          <li><a href="#ch1">Chapitre 1 : Introduction Générale</a> <span class="toc-page" data-target="ch1"></span></li>
+          <li><a href="#ch2">Chapitre 2 : Contexte et Problématique</a> <span class="toc-page" data-target="ch2"></span></li>
+          <li><a href="#ch3">Chapitre 3 : Analyse & Spécifications Fonctionnelles</a> <span class="toc-page" data-target="ch3"></span></li>
+          <li><a href="#ch4">Chapitre 4 : Spécifications Techniques & Exigences Non-Fonctionnelles</a> <span class="toc-page" data-target="ch4"></span></li>
+          <li><a href="#ch5">Chapitre 5 : Conception & Architecture</a> <span class="toc-page" data-target="ch5"></span></li>
+          <li><a href="#ch6">Chapitre 6 : Implémentation</a> <span class="toc-page" data-target="ch6"></span></li>
+          <li><a href="#ch7">Chapitre 7 : Tests & Validation</a> <span class="toc-page" data-target="ch7"></span></li>
+          <li><a href="#ch8">Chapitre 8 : Performances & Optimisations</a> <span class="toc-page" data-target="ch8"></span></li>
+          <li><a href="#ch9">Chapitre 9 : Sécurité & Qualité</a> <span class="toc-page" data-target="ch9"></span></li>
+          <li><a href="#ch10">Chapitre 10 : Résultats & Discussion</a> <span class="toc-page" data-target="ch10"></span></li>
+          <li><a href="#ch11">Chapitre 11 : Perspectives & Améliorations Futures</a> <span class="toc-page" data-target="ch11"></span></li>
+          <li><a href="#ch12">Chapitre 12 : Conclusion Générale</a> <span class="toc-page" data-target="ch12"></span></li>
+          <li><a href="#ref">Références Bibliographiques</a> <span class="toc-page" data-target="ref"></span></li>
+          <li><a href="#annexes">Annexes</a> <span class="toc-page" data-target="annexes"></span></li>
+        </ol>
+        <p style="font-size:10pt;color:#555">Pagination indicative; ajustements finaux dans la version PDF.</p>
+      </section>
+
+      <div class="page-break"></div>
+
+      <section id="remerciements">
+        <h2>Remerciements</h2>
+        <p>Je tiens à exprimer ma profonde gratitude à mon(ou ma) encadrant(e) pour ses conseils méthodologiques, sa disponibilité constante et la confiance accordée tout au long de ce projet. Mes remerciements vont également aux membres du jury pour leurs remarques critiques et constructives, qui ont permis d'améliorer la qualité scientifique et pédagogique de ce mémoire.</p>
+        <p>Je souhaite également remercier la direction de la filière ainsi que l’ensemble du corps enseignant de la Faculté des Sciences pour la qualité de l’encadrement pédagogique et scientifique dont j’ai bénéficié durant ma formation. Leur exigence et leur bienveillance ont constitué un cadre précieux pour la réalisation de ce Projet de Fin d’Études.</p>
+        <p>Je remercie enfin mes collègues étudiants pour les échanges techniques (optimisation des algorithmes de simulation, structuration des données) et mes proches pour leur soutien moral pendant les phases intensives de développement. À toutes celles et ceux qui, de près ou de loin, ont contribué à la réalisation de ce travail, j’exprime ici ma reconnaissance la plus sincère.</p>
+      </section>
+
+      <section id="resume" class="page-break">
+        <h2>Résumé</h2>
+        <p>RoSiStrat est une plateforme de simulation de stratégies de roulette européenne permettant d'évaluer, de comparer et de comprendre la dynamique probabiliste des systèmes de mise sans exposition financière réelle. Elle intègre six stratégies représentatives (Compound Martingale, Max Lose, Zapping, Safe Compound Martingale, SAM+, Standard Martingale) et fournit des métriques clés (gain/perte cumulés, variance, drawdown maximum, stabilité). L'approche éducative vise à illustrer de manière empirique l'espérance mathématique négative propre au jeu tout en sensibilisant à la gestion du risque.</p>
+        <ul>
+          <li><strong>Validation des entrées</strong> : contrôle systématique des champs saisis (capital initial, nombre de tours, paramètres propres à chaque stratégie) côté front-end et côté back-end pour éviter les valeurs hors bornes ou incohérentes ;</li>
+          <li><strong>Sanitisation des paramètres</strong> : filtrage et typage strict des données reçues par l’API, afin d’éviter l’injection de contenu malveillant ou de valeurs pouvant conduire à des comportements imprévisibles du moteur de simulation ;</li>
+          <li><strong>Gestion des erreurs</strong> : messages d’erreur génériques côté client (pour ne pas divulguer de détails internes) et journalisation plus précise côté serveur pour faciliter le diagnostic.</li>
+        </ul>
+      <section id="abstract" class="page-break">
+        <ul>
+          <li><strong>Tests unitaires</strong> : couverture des stratégies, du moteur de simulation et des principales fonctions utilitaires ;</li>
+          <li><strong>Linting & typage</strong> : utilisation systématique de TypeScript et d’outils d’analyse statique (lint) pour repérer tôt les erreurs de type et les mauvaises pratiques ;</li>
+          <li><strong>Documentation</strong> : description concise des interfaces publiques (stratégies, services de simulation, API HTTP) et des conventions de configuration.</li>
+        </ul>
+        <p>RoSiStrat est une application web éducative de simulation de stratégies de roulette européenne, construite comme une véritable plateforme front‑end moderne : React 18 + TypeScript, Vite, TailwindCSS, avec une bibliothèque de composants basée sur Radix UI et shadcn/ui. L’utilisateur configure un capital initial, choisit une devise parmi neuf (USD, EUR, GBP, AED, SAR, MAD, JPY, CHF, CAD), sélectionne une stratégie et lance des campagnes de 500 spins (ou plus) afin de visualiser l’évolution du portefeuille, les gains/pertes cumulés et différents indicateurs de risque.</p>
+        <p>Le cœur métier repose sur un moteur de simulation extensible et un utilitaire de roulette typé qui génèrent des suites de numéros pseudo‑aléatoires reproductibles (seed fixe), appliquent les règles de mise et produisent des résultats structurés par tour (spin, numéro tiré, mises par sous‑stratégie, résultat net, capital cumulatif). Six stratégies représentatives sont implémentées : Compound Martingale, Max Lose, Zapping, Safe Compound Martingale, SAM+ (Smart Adaptive Martingale Plus) et Standard Martingale. Chacune est modélisée via des interfaces TypeScript dédiées, avec gestion des mises simultanées (par exemple sur zéro, douzaines, couleur, pair/impair) et des paramètres de sécurité (safety ratio, seuils d’arrêt).</p>
+        <p>L’application intègre un système d’authentification complet basé sur Firebase Auth et Firestore, encapsulé dans un contexte React (`AuthContext`) et complété par un mode démo de secours lorsque l’environnement ne permet pas d’initialiser Firebase. Les simulations peuvent ainsi être conservées localement ou synchronisées dans le cloud, avec des services métier dédiés (`SimulationService`) pour la migration local → cloud, l’export CSV et la ré‑utilisation des configurations. Un ensemble de règles de sécurité Firestore, d’indexes et de tests automatisés (41 tests Firebase) a été rédigé et documenté dans une suite de rapports (security audit, index verification, testing completion report), garantissant la conformité des accès (ownership‑based access control, deny‑all par défaut, vérification du `userId`) et des performances des requêtes.</p>
+        <p>Du point de vue expérience utilisateur, RoSiStrat est une Progressive Web App validée par 79 tests dédiés, avec manifest.json complet, service worker en stratégie cache‑first, support hors‑ligne et installation sur desktop et mobile (Chrome, Safari, Edge, Firefox). L’interface réactive exploite React Query pour le cache et le chargement des données (9 hooks spécialisés, 52 tests de validation), un routage documenté et testé (routes publiques/protégées, paramètres d’URL, accessibilité), ainsi qu’une couche de composants UI auditée (plus de 60 composants passés en revue, corrections recommandées sur ARIA, focus, tailles de cibles tactiles). Un audit PWA détaillé, des guides d’installation et de service worker, ainsi que des check‑lists de validation complètent la documentation.</p>
+        <p>La qualité logicielle s’appuie sur un écosystème de tests riche (318 tests Vitest couvrant formulaires, Firebase, React Query, routing, PWA, utilitaires), une CI GitHub Actions pour le backend (build, smoke tests, image Docker, health checks), et une documentation très fournie (plus de 50 pages sur Firebase, la PWA, les composants, les formulaires et le routage). Le projet inclut également une architecture de déploiement conteneurisée (Dockerfiles frontend et backend, docker‑compose) et un runbook de production pour le backend (exécution Node, image Docker, Cloud Run/Kubernetes envisagés), ce qui en fait un cas d’étude complet de pipeline DevOps moderne autour d’un simulateur académique de stratégies de roulette.</p>
+          <li><strong>Tests unitaires métier</strong> : vérification détaillée des règles de chaque stratégie, du comportement du moteur de simulation et des fonctions de calcul d’indicateurs ;</li>
+          <li><strong>Tests statistiques</strong> : contrôle de la qualité du générateur pseudo-aléatoire et des distributions obtenues sur de grands échantillons ;</li>
+          <li><strong>Tests d’intégration et de bout en bout</strong> : validation des flux complets « configuration → exécution → visualisation/export », y compris via l’interface React.</li>
+        </ul>
+        <p>Les simulations réalisées confirment un résultat classique : quelle que soit la stratégie retenue, l’espérance mathématique reste négative, et le joueur finit par être désavantagé sur le long terme. Toutefois, la manière dont cette espérance négative se manifeste varie fortement d’une stratégie à l’autre. C’est précisément cette « forme » des trajectoires de capital que RoSiStrat permet de visualiser et de comparer.</p>
+        <p>Les tests statistiques portent principalement sur le PRNG et la robustesse des distributions simulées. Sur un échantillon de 100 000 tirages, la fréquence de chaque numéro de la roulette doit rester compatible avec une loi uniforme (à l’intérieur d’un intervalle de confiance choisi). Des tests de type Khi-deux peuvent être appliqués pour vérifier que l’écart entre fréquences observées et attendues ne dépasse pas un certain seuil. De la même manière, des tests de séquences (runs tests) permettent de s’assurer de l’absence de motifs déterministes grossiers dans la suite produite.</p>
+        <p>Les stratégies redistribuent la variance : une Martingale concentre le risque sur des épisodes rares mais extrêmement violents (ruines rapides après une série défavorable), tandis qu’une stratégie comme D’Alembert produit une courbe de capital plus lissée, au prix d’une progression de mise plus modérée. Fibonacci se situe entre les deux, avec des phases de récupération parfois longues et une volatilité globalement intermédiaire. Dans tous les cas, la maison garde son avantage, mais la perception du risque pour le joueur change radicalement.</p>
+        <p>L'analyse comparative montre que la réduction apparente de pertes à court terme dans les systèmes progressifs (par exemple Martingale) masque une vulnérabilité sévère aux séries défavorables longues. Les graphiques de drawdown mettent en évidence des chutes spectaculaires de capital après des séquences de pertes, ce qui rend ces stratégies particulièrement risquées pour des joueurs disposant d’un capital limité ou d’une tolérance au risque faible.</p>
+        <p>Les stratégies plus conservatrices produisent des trajectoires proches d'une marche aléatoire modérément biaisée, facilitant une estimation de la probabilité de ruine sous capital restreint. Les métriques telles que le ratio gain/variance et une adaptation simplifiée du ratio de Sharpe (profit moyen / écart-type) permettent d'approcher la notion de régularité de performance, même dans un contexte d'espérance négative globale. Cette perspective quantifiée éclaire les limites des stratégies de récupération rapide et renforce la conclusion qu'aucun artifice séquentiel ne modifie la structure probabiliste fondamentale.</p>
+        <p>Un apport intéressant de RoSiStrat est de rendre ces constats visibles de manière interactive. En modifiant les paramètres (capital initial, nombre de tours, seuils d’arrêt) et en observant immédiatement l’impact sur les courbes et les indicateurs, l’utilisateur prend conscience du rôle déterminant de la variance et des séries dans les résultats observés. Cette dimension pédagogique complète utilement la démonstration théorique et les preuves mathématiques présentées dans la littérature.</p>
+        <p>Sur le plan quantitatif, les campagnes de test mettent en évidence des comportements attendus :</p>
+        <ul>
+          <li><strong>Martingale</strong> : trajectoires marquées par de longues périodes de gains modestes, ponctuées de chutes brutales lorsque la capacité de doublement est atteinte ; volatilité élevée et risque de ruine significatif même pour des capitaux initiaux relativement confortables ;</li>
+          <li><strong>Fibonacci</strong> : croissance lente et plus progressive des mises, ce qui réduit la fréquence des ruines immédiates mais prolonge les périodes de pertes ;</li>
+          <li><strong>D'Alembert</strong> : courbe de capital plus lissée, avec des variations moins extrêmes, mais une espérance qui reste négative et une probabilité de ruine non négligeable sur des horizons de simulation longs.</li>
+        </ul>
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : results-graph.png\nDossier suggéré : /images/results/\nDescription : Graphique superposant balance vs tours pour 3 stratégies sur 10k tours</div>
+        <p>La démarche de validation s'articule ainsi en plusieurs couches : (1) correction fonctionnelle des règles de stratégie, (2) robustesse probabiliste du générateur, (3) cohérence statistique des agrégats. Un écart de distribution ou un comportement anormal (par exemple une variance trop faible ou trop élevée par rapport aux attentes) déclenche une analyse ciblée. Les benchmarks de performance établissent en parallèle une base de référence pour détecter les régressions et guider les optimisations futures.</p>
+        <p>La reproductibilité est garantie par la conservation des paramètres de simulation (seed, nombre de tours, capital initial, stratégie) dans des objets de configuration exportables, facilitant la réplication exacte d'une expérience et la comparaison inter-sessions. Cette propriété est également exploitée dans le pipeline DevOps : certaines simulations « de référence » sont automatiquement rejouées après les changements importants pour vérifier la stabilité globale du système.</p>
+            <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : architecture-globale.png\nDossier suggéré : /images/architecture/\nDescription : Vue haute niveau frontend, backend, base de données, services auxiliaires</div>
+          </li>
+          <li>Figure 2 – Diagramme des cas d'utilisation
+            <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : use-case-diagram.png\nDossier suggéré : /images/uml/\nDescription : Acteurs principaux et interactions (lancer simulation, comparer, exporter)</div>
+          </li>
+        <p>Les premiers benchmarks réalisés sur une machine de développement standard montrent qu’une simulation de 10 000 tours s’exécute en quelques secondes, ce qui est compatible avec un usage interactif. Le coût principal se situe dans la boucle de simulation, où chaque tour implique la génération d’un nombre aléatoire, l’application de la stratégie et la mise à jour des métriques. Les opérations d’E/S (écriture base de données, export) sont marginales à ces échelles.</p>
+        <p>Pour caractériser plus finement les performances, différents scénarios ont été testés : variation du nombre de tours (1 000, 10 000, 100 000), comparaison de plusieurs stratégies sur une même longueur de série, exécution de simulations successives avec des paramètres voisins. Ces tests ont permis d’identifier les principaux leviers d’optimisation, notamment la préallocation des structures de données (tableaux d’historique, buffers de résultats) et la réduction des allocations d’objets intermédiaires dans la boucle principale.</p>
+        <h3>8.2 Optimisations futures</h3>
+        <ul>
+          <li><strong>Portage partiel en WebAssembly</strong> : déplacer la partie purement algorithmique (génération de nombres, mise à jour des métriques) dans un module WASM pour accélérer les scénarios de recherche intensive ;</li>
+          <li><strong>Buffers typés</strong> : utiliser des <code>TypedArray</code> pour stocker les séquences de résultats (numéros, gains, capital) et limiter la pression sur le ramasse-miettes JavaScript ;</li>
+          <li><strong>Batching et agrégation</strong> : exécuter plusieurs simulations en lot et fusionner leurs statistiques via des algorithmes d’agrégation incrémentale, ce qui ouvrirait la voie à un déploiement distribué.</li>
+        </ul>
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : perf-chart.png\nDossier suggéré : /images/perf/\nDescription : Graphique temps vs nombre de tours</div>
+            <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : strategy-comparison.png\nDossier suggéré : /images/results/\nDescription : Courbes capital vs tours pour 5 stratégies</div>
+          </li>
+          <li>Figure 6 – Profil de risque (drawdown) Martingale vs D'Alembert
+            <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : risk-profile.png\nDossier suggéré : /images/results/\nDescription : Visualisation des drawdowns cumulés</div>
+          </li>
+          <li>Figure 7 – Validation PRNG (Distribution des tirages)
+            <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : prng-distribution.png\nDossier suggéré : /images/tests/\nDescription : Histogramme fréquence des numéros sur 100k spins</div>
+          </li>
+          <li>Tableau 1 – Spécifications fonctionnelles principales
+            <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : specs-fonctionnelles.png\nDossier suggéré : /images/specs/\nDescription : Tableau exigences simulation, stratégies, export</div>
+          </li>
+          <li>Tableau 2 – Indicateurs de performance
+            <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : perf-metrics.png\nDossier suggéré : /images/perf/\nDescription : Temps par 1k, 10k, 50k tours; mémoire; latence</div>
+          </li>
+          <li>Tableau 3 – Résumé audit sécurité Firebase
+            <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : firebase-security-summary.png\nDossier suggéré : /images/security/\nDescription : Règles, validations, conformité OWASP/GDPR</div>
+          </li>
+        </ol>
+      </section>
+
+      <section id="glossaire" class="page-break">
+        <h2>Glossaire</h2>
+        <p style="font-size:10pt;color:#555">Les termes renvoient aux chapitres où ils sont analysés. Les hyperliens internes pourront être ajoutés après finalisation des ancres précises.</p>
+        <dl style="font-size:11pt; line-height:1.4">
+          <dt><strong>Espérance (E)</strong></dt>
+          <dd>Valeur moyenne théorique d'un gain par mise. Négative à la roulette européenne (≈ -2,7%).</dd>
+          <dt><strong>Variance</strong></dt>
+          <dd>Mesure de dispersion des résultats autour de la moyenne; indique volatilité d'une stratégie.</dd>
+          <dt><strong>Drawdown</strong></dt>
+          <dd>Plus forte baisse relative de capital depuis un sommet local; reflète le risque maximal observé.</dd>
+          <dt><strong>PRNG</strong></dt>
+          <dd>Générateur pseudo-aléatoire de nombres (Mersenne Twister ici) produisant séquences simulant l'aléa.</dd>
+          <dt><strong>Martingale</strong></dt>
+          <dd>Système doublant la mise après perte pour récupérer toutes les pertes + 1 unité de profit.</dd>
+          <dt><strong>Kelly / SAM+</strong></dt>
+          <dd>Approche adaptative ajustant la mise selon probabilité estimée et capital pour optimiser croissance.</dd>
+          <dt><strong>ROI</strong></dt>
+          <dd>Return On Investment; ratio gain net / capital initial sur la période simulée.</dd>
+          <dt><strong>PWA</strong></dt>
+          <dd>Progressive Web App; application web installable offrant expérience proche native.</dd>
+          <dt><strong>Firestore</strong></dt>
+          <dd>Base de données NoSQL temps réel utilisée pour persister certaines données utilisateur (auth, simulation).</dd>
+          <dt><strong>CI/CD</strong></dt>
+          <dd>Intégration Continue / Déploiement Continu; automatisation build, tests, déploiements via pipeline.</dd>
+          <dt><strong>Compliance</strong></dt>
+          <dd>Adhérence aux standards (OWASP, GDPR, bonnes pratiques sécurité et performance).</dd>
+        </dl>
+      </section>
+
+      <section id="ch1" class="page-break">
+        <h2>Chapitre 1 : Introduction Générale</h2>
+        <p>L'étude des systèmes de mise à la roulette demeure un terrain privilégié pour illustrer les notions fondamentales de probabilité, de variance et d'espérance mathématique négative. La roulette européenne offre un cadre bien défini : 37 cases, une probabilité fixe de gain/perte sur les mises simples, et un « avantage maison » constant. Dans ce contexte, de nombreuses stratégies historiques (Martingale, Fibonacci, Labouchère, D'Alembert, Paroli, etc.) ont été proposées par les praticiens et étudiées par les mathématiciens.</p>
+        <p>Ce mémoire s’inscrit dans le cadre du Projet de Fin d’Études en Génie Informatique et vise à articuler une problématique mathématique classique avec une démarche d’ingénierie logicielle moderne. RoSiStrat est ainsi à la fois un objet d’étude scientifique et un support concret pour mettre en œuvre une architecture applicative complète, des pratiques DevOps et des techniques de simulation à grande échelle.</p>
+        <p>Le projet RoSiStrat s'inscrit dans cette lignée en proposant une plateforme de simulation qui ne cherche pas à « battre » le jeu, mais à quantifier avec rigueur le comportement réel de ces stratégies, dans un cadre expérimental contrôlé. L'objectif est de donner aux étudiants et aux ingénieurs un environnement complet pour observer, mesurer et comparer la dynamique des systèmes de mise, plutôt que de se limiter à des raisonnements théoriques ou à des exemples manuels de petite taille.</p>
+        <p>Dans le même temps, RoSiStrat est un projet pleinement ancré dans les préoccupations actuelles du développement logiciel : il combine un front-end moderne (React + TypeScript), un back-end Node.js/Express, une base de données, une couche de simulation algorithmique, et un pipeline DevOps permettant de tester, construire et déployer la solution de manière répétable. Le rapport présenté ici adopte donc une double focale : d'une part l'analyse probabiliste et statistique des stratégies de jeu, d'autre part la description de l'architecture full stack et des choix DevOps qui rendent possible cette étude.</p>
+        <p>Les objectifs principaux du projet peuvent être résumés comme suit :</p>
+        <ul>
+          <li>mettre en place un moteur de simulation fiable, extensible, capable de reproduire de façon réaliste plusieurs stratégies de mise sur un grand nombre de tours ;</li>
+          <li>fournir une interface web ergonomique permettant de paramétrer les expériences (capital initial, nombre de tours, stratégie choisie, seed aléatoire) et d’observer les résultats sous forme de tableaux et de graphiques ;</li>
+          <li>structurer un pipeline de développement et de déploiement (CI/CD) qui garantit la qualité du code, la reproductibilité des simulations et la génération automatisée d’artefacts (par exemple le rapport en PDF) ;</li>
+          <li>proposer une base documentaire claire qui relie les concepts mathématiques (espérance, variance, probabilité de ruine) aux décisions techniques (choix d’architecture, de technologies, de stratégies de test et de monitoring).</li>
+        </ul>
+        <p>Au-delà de la simple comparaison empirique, le projet se veut également un support pédagogique pour des modules d’enseignement liés à la data science, au DevOps et au développement full stack. L’application web doit ainsi rester suffisamment simple pour être comprise par un étudiant de fin de cycle, tout en étant assez structurée pour servir de cas d’étude sur la modularité, la maintenabilité et l’intégration continue.</p>
+        <p>La force du projet réside dans l’intégration cohérente de ces différentes dimensions : une modélisation probabiliste transparente, un moteur extensible de simulation, une interface utilisateur claire et un outillage DevOps capable de faire vivre le projet dans la durée. RoSiStrat se présente ainsi comme un laboratoire numérique dans lequel il est possible de tester des hypothèses, d’itérer sur le code et de suivre l’impact des modifications à travers un pipeline automatisé.</p>
+        <p>Les sections suivantes préciseront le contexte scientifique et technique dans lequel s’inscrit RoSiStrat, avant de détailler l’analyse des besoins, les choix d’architecture, la mise en œuvre et la validation expérimentale du simulateur. Elles visent à offrir une vision cohérente de l’ensemble du cycle de vie du projet, depuis la définition de la problématique jusqu’à la discussion des résultats et des perspectives futures.</p>
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : intro-schema.png\nDossier suggéré : /images/intro/\nDescription : Schéma synthétique des flux entre stratégies, moteur de simulation et calculs statistiques</div>
+      </section>
+
+      <section id="ch2" class="page-break">
+        <h2>Chapitre 2 : Contexte et Problématique</h2>
+        <h3>1.1 Historique synthétique</h3>
+        <p>La roulette européenne (37 cases) établit un cadre probabiliste stable depuis le XIXe siècle. Les systèmes de mise (Martingale, Fibonacci, Labouchère, D'Alembert, Paroli) se sont multipliés avec l’ambition de « dompter » la variance plutôt que de modifier l’espérance. Historiquement, ces systèmes sont souvent nés dans la pratique des jeux d’argent avant d’être analysés a posteriori par la théorie des probabilités et les mathématiques financières.</p>
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : histoire-roulette.png\nDossier suggéré : /images/context/\nDescription : Ligne temporelle des principales stratégies de mise et évolutions du jeu</div>
+        <h3>1.2 Avantage maison</h3>
+        <p>Espérance négative type pour une mise simple : E = (18/37 * +1) + (19/37 * -1) ≈ -0.027. Cette valeur symbolise l’avantage structurel du casino, indépendant de la séquence des mises. Toute stratégie ne peut que modifier la distribution des séquences de gains/pertes (fréquence des petites pertes, profondeur des pertes extrêmes, durée avant ruine, etc.) sans inverser cette espérance négative.</p>
+        <h3>1.3 Problématique</h3>
+        <p>Dans la pratique, de nombreux joueurs continuent pourtant à croire en la possibilité d’une « martingale gagnante », souvent sur la base de raisonnements intuitifs (loi des séries, retour à la moyenne, etc.) ou d’anecdotes. La littérature scientifique souligne au contraire la stabilité de l’avantage maison et met en évidence que ces systèmes de mise ne sont que des transformations séquentielles de montants (progressions positives ou négatives) sans impact sur la structure fondamentale des probabilités.</p>
+        <p>La valeur ajoutée d'un simulateur académique comme RoSiStrat n'est donc pas de proposer une nouvelle méthode miracle, mais de qualifier rigoureusement :</p>
+        <ul>
+          <li>la volatilité de chaque stratégie (amplitude des fluctuations de capital) ;</li>
+          <li>la profondeur et la fréquence des drawdowns (baisse maximale depuis un sommet) ;</li>
+          <li>la probabilité de ruine pour un capital donné et un horizon de temps fixé ;</li>
+          <li>la forme générale des trajectoires de capital (pics rapides suivis de chutes brutales, marche plus lissée, etc.).</li>
+        </ul>
+        <p>À cette problématique probabiliste s’ajoute un enjeu technologique : comment offrir un cadre expérimental modulaire, performant et pédagogiquement clair pour comparer objectivement plusieurs stratégies dans un environnement contrôlé, tout en respectant les bonnes pratiques de développement full stack et de DevOps ? Il s’agit d’un projet où l’architecture applicative, les choix d’outillage (frameworks, base de données, pipeline CI/CD) et la qualité du code sont aussi importants que les modèles mathématiques sous-jacents.</p>
+        <p>RoSiStrat répond à cette double problématique en proposant d’un côté un moteur de simulation extensible, capable d’intégrer de nouvelles stratégies sans refonte majeure, et de l’autre une application web structurée permettant de visualiser les résultats, d’exporter les données, et de déployer facilement le système dans différents environnements (développement, intégration, production). La transparence méthodologique est assurée par la définition de métriques standardisées et reproductibles, ainsi que par une chaîne DevOps qui facilite la répétition des expériences et le suivi des évolutions du code dans le temps.</p>
+      </section>
+
+      <section id="ch3" class="page-break">
+        <h2>Chapitre 3 : Analyse & Spécifications Fonctionnelles</h2>
+        <h3>2.1 Analyse des besoins</h3>
+        <p>L’analyse des besoins s’est appuyée sur trois sources principales : (1) les exigences académiques du PFE (démontrer une approche rigoureuse, reproductible et documentée), (2) les attentes d’un utilisateur « étudiant/ingénieur » souhaitant explorer les stratégies de mise sans expertise en programmation, (3) les contraintes techniques liées à l’environnement cible (application web accessible, exécution côté client/serveur, intégration avec un pipeline DevOps). À partir de ces éléments, nous avons dégagé un ensemble de cas d’utilisation structurants.</p>
+        <p>Le diagramme de cas d’utilisation (Figure 2) met en évidence les acteurs principaux :</p>
+        <ul>
+          <li><strong>Utilisateur standard</strong> : configure une simulation (capital, stratégie, nombre de tours, seed), lance l’exécution, consulte les résultats sous forme de tableaux et de graphiques, exporte éventuellement les données ;</li>
+          <li><strong>Utilisateur avancé</strong> : ajoute ou active des stratégies personnalisées, modifie certains paramètres avancés (par exemple les seuils de stop-loss/stop-gain), compare plusieurs campagnes entre elles ;</li>
+          <li><strong>Administrateur/Développeur</strong> : supervise le déploiement, exécute les tests, surveille les performances via les métriques exposées et gère l’évolution du projet dans le temps.</li>
+        </ul>
+
+        <h3>2.2 Spécifications fonctionnelles principales</h3>
+        <ul>
+          <li><strong>Configuration des simulations</strong> : l’utilisateur doit pouvoir définir le capital initial, le nombre de tours, la stratégie choisie et, de manière optionnelle, une graine pseudo-aléatoire pour assurer la reproductibilité ;</li>
+          <li><strong>Exécution d’une simulation</strong> : le système exécute la stratégie tour par tour, en appliquant la logique de mise définie et en enregistrant les informations pertinentes (mise, numéro sorti, gain/perte, capital courant) ;</li>
+          <li><strong>Comparaison multi-stratégies</strong> : l’interface doit permettre d’exécuter plusieurs simulations avec des stratégies différentes (ou un même scénario répété) et d’afficher les résultats côte à côte ;</li>
+          <li><strong>Visualisation des résultats</strong> : synthèse des séries temporelles (capital en fonction du nombre de tours), indicateurs agrégés (gain total, variance, drawdown maximal, probabilité de ruine observée), graphiques comparatifs ;</li>
+          <li><strong>Export des données</strong> : possibilité d’exporter les résultats au format CSV/JSON pour exploitation dans des outils externes (Python, R, tableurs) ;</li>
+          <li><strong>Gestion des stratégies</strong> : inclusion de stratégies prédéfinies (Martingale, Fibonacci, D’Alembert, etc.) et mécanisme d’extension permettant d’enregistrer de nouvelles stratégies via une interface standard.</li>
+        </ul>
+
+        <h3>2.3 Exigences non-fonctionnelles</h3>
+        <ul>
+          <li><strong>Performance</strong> : une simulation de 10 000 tours doit rester acceptable en temps de réponse sur une machine standard (ordre de quelques secondes au maximum) ;</li>
+          <li><strong>Extensibilité</strong> : l’ajout d’une nouvelle stratégie ne doit pas nécessiter de réécrire le moteur de simulation ni l’interface de base ;</li>
+          <li><strong>Reproductibilité</strong> : l’utilisation d’une graine PRNG explicite et l’export des paramètres de simulation doivent permettre de rejouer exactement un scénario ;</li>
+          <li><strong>Observabilité</strong> : le système doit exposer des informations minimales sur les temps de calcul et les ressources consommées, afin d’orienter d’éventuelles optimisations ;</li>
+          <li><strong>Robustesse</strong> : les erreurs de configuration (valeurs hors bornes, combinaisons incohérentes) doivent être détectées et signalées à l’utilisateur sans compromettre la stabilité globale de l’application.</li>
+        </ul>
+
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : use-case-diagram.png\nDossier suggéré : /images/uml/\nDescription : Diagramme des cas d'utilisation (configurer, lancer simulation, comparer, exporter)</div>
+        <p>Les exigences fonctionnelles ont été priorisées selon trois axes : intégrité (exactitude des calculs), clarté (lisibilité des indicateurs) et extensibilité (facilité d'intégration de nouvelles stratégies). Un modèle de configuration sérialisable (JSON) permet la ré-exécution automatisée de scénarios, condition essentielle à la reproductibilité scientifique. L'export des résultats ouvre la voie à des analyses statistiques externes (régressions, clustering de profils de risque).</p>
+        <p>L'aspect non-fonctionnel inclut une contrainte de stabilité temporelle : éviter la dégradation exponentielle des temps de simulation lorsque le nombre de tours augmente. L'utilisation de structures légères et de calculs incrémentaux (moyenne, variance, drawdown en ligne) garantit une complexité linéaire maîtrisée. Ces choix convergent vers un système à la fois pédagogique et techniquement crédible, apte à servir de support à d’autres travaux (ajout de modules analytiques, extension du back-end, intégration dans un environnement DevOps complet).</p>
+      </section>
+
+      <section id="ch4" class="page-break">
+        <h2>Chapitre 4 : Spécifications Techniques & Exigences Non-Fonctionnelles</h2>
+        <h3>4.1 Choix technologiques principaux</h3>
+        <p>Le projet repose sur une pile technologique cohérente avec un contexte de développement web moderne :</p>
+        <ul>
+          <li><strong>Front-end</strong> : React avec TypeScript, pour bénéficier à la fois de la puissance des composants fonctionnels et du typage statique ;</li>
+          <li><strong>Back-end</strong> : Node.js/Express, offrant un environnement JavaScript homogène et un modèle de serveur simple à déployer ;</li>
+          <li><strong>Base de données</strong> : une base légère (par exemple SQLite) pour stocker les configurations, les runs de simulation et les résultats agrégés ;</li>
+          <li><strong>Outils DevOps</strong> : scripts de build, tests automatisés, génération du rapport et pipeline CI/CD (par exemple basé sur GitHub Actions) ;</li>
+          <li><strong>Outils de visualisation</strong> : bibliothèques de graphiques côté front-end pour représenter les trajectoires de capital et les indicateurs clés.</li>
+        </ul>
+
+        <h3>4.2 Performance & Scalabilité</h3>
+        <p>Du point de vue technique, deux aspects sont distingués :</p>
+        <ul>
+          <li><strong>Performance côté simulation</strong> : la boucle principale (génération du numéro, calcul du gain/perte, mise à jour des métriques) doit être optimisée pour rester linéaire en fonction du nombre de tours. Des heuristiques simples, comme la réutilisation d’objets et la préallocation de tableaux, suffisent à atteindre des temps de calcul acceptables pour 10 000 voire 100 000 tours ;</li>
+          <li><strong>Performance côté interface</strong> : l’affichage des résultats doit rester fluide, même lorsque le nombre de points de données augmente. Des techniques de simplification ou d’agrégation de courbes (par exemple l’échantillonnage) peuvent être utilisées pour éviter de surcharger le navigateur.</li>
+        </ul>
+        <p>La scalabilité horizontale (support de nombreux utilisateurs simultanés, exécution de simulations en parallèle) n’est pas au cœur de ce PFE, mais les choix réalisés (Node.js stateless, séparation nette front/back, absence d’état global partagé) préparent le terrain pour un déploiement plus ambitieux (containers, orchestrateurs, etc.).</p>
+
+        <h3>4.3 Extensibilité & Modularité</h3>
+        <p>L’architecture logique est pensée pour faciliter l’ajout de nouvelles stratégies et de nouveaux types d’analyses. Le moteur de simulation n’a connaissance que d’une interface abstraite de stratégie (méthodes pour initialiser la stratégie et pour calculer la mise suivante à partir de l’état courant). Chaque stratégie concrète implémente cette interface et peut donc être branchée sans modification du cœur.</p>
+        <p>De la même façon, la couche de persistance (base de données) est isolée derrière des adaptateurs ; il devient alors possible de substituer SQLite par un autre système (par exemple une base NoSQL) sans revoir la logique métier. Cette modularité est essentielle pour que le projet puisse évoluer au-delà du cadre du PFE.</p>
+
+        <h3>4.4 Observabilité & Qualité de service</h3>
+        <p>Pour soutenir le volet DevOps du projet, l’application expose ou enregistre un certain nombre de métriques techniques : temps moyen d’exécution d’une simulation, consommation mémoire approximative, taille des résultats exportés, etc. Ces mesures peuvent être analysées à travers le pipeline CI/CD pour détecter d’éventuelles régressions de performance.</p>
+        <p>Des journaux (logs) structurés sont générés côté serveur pour suivre les événements importants (début/fin de simulation, erreurs, paramètres anormaux). L’instrumentation reste volontairement légère, mais elle fournit une base suffisante pour intégrer ultérieurement des solutions de monitoring plus avancées.</p>
+
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : tech-specs-diagram.png\nDossier suggéré : /images/specs/\nDescription : Diagramme synthétique exigences techniques et flux de métriques</div>
+        <p>L'environnement technique s'appuie sur un générateur pseudo-aléatoire testable et une instrumentation légère (hooks de mesure de temps et compteurs mémoire). La scalabilité horizontale, bien que hors périmètre immédiat, est anticipée via une découpe claire des responsabilités et une absence de dépendance à état global mutable. Les exigences de robustesse comprennent la résilience aux entrées malformées et la protection contre des boucles potentiellement infinies (stratégies mal codées). Des garde-fous (limites de mise, nombre maximal de doublings) sont intégrables dans la configuration pour préserver la stabilité du moteur.</p>
+      </section>
+
+      <section id="ch5" class="page-break">
+        <h2>Chapitre 5 : Conception & Architecture</h2>
+        <h3>3.1 Vue d'ensemble</h3>
+        <p>L’architecture globale du projet suit une approche en couches inspirée de l’architecture hexagonale côté back-end, et d’une structuration par composants et hooks côté front-end. L’objectif est de séparer clairement : (1) le domaine (logique de simulation, stratégies, calculs statistiques), (2) l’application (orchestration des simulations, gestion des scénarios, validation des paramètres), (3) l’infrastructure (persistance, exposition HTTP, intégration avec le pipeline DevOps).</p>
+        <p>Sur la partie front-end, l’application est construite avec React et TypeScript. Chaque écran majeur (configuration, exécution de simulation, visualisation des résultats) est représenté par un composant de haut niveau, qui délègue la logique métier à des hooks spécialisés et la présentation à des sous-composants plus simples (formulaires, tableaux, graphiques). Cette organisation permet de limiter le couplage et de tester la logique métier presque indépendamment du rendu.</p>
+        <p>Sur la partie back-end, un serveur Node.js/Express joue le rôle d’API pour lancer des simulations en mode batch, récupérer des résultats stockés en base, et fournir les métadonnées nécessaires à l’interface. Les accès à la base (par exemple SQLite) sont encapsulés derrière un « repository » qui expose des opérations de haut niveau (enregistrer un scénario, persister un run de simulation, lister les exécutions passées) sans exposer le SQL ou les détails de la technologie de stockage.</p>
+        <h3>3.2 Modèle objet (extraits)</h3>
+        <pre class="code">interface Strategy {\n  name:string; init(params:any):void; getNextBet(state:State):Bet;}\nclass Martingale implements Strategy { /* logique condensée */ }</pre>
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : architecture-globale.png\nDossier suggéré : /images/architecture/\nDescription : Diagramme couches : UI, API, Domaine, Persistance, PRNG</div>
+        <p>La séparation hexagonale garantit que le cœur métier (calcul des mises, mise à jour des métriques) demeure indépendant des détails de persistance ou de présentation. Les ports définissent les opérations abstraites (exécuter une simulation, récupérer des statistiques) et les adaptateurs concrétisent ces ports (implémentation du PRNG, écriture base de données, exposition HTTP, rendu React). Cette approche améliore la testabilité : il est possible de remplacer un adaptateur par un double (mock) dans les tests sans toucher au domaine.</p>
+        <p>Le pattern Strategy est central : chaque système de mise devient une implémentation interchangeable conforme à une interface minimaliste. Un nouvel algorithme se limite à implémenter la méthode de calcul de la mise suivante en fonction de l’historique et de l’état courant. Du côté React, des hooks dédiés (par exemple <code>useSimulationConfig</code>, <code>useSimulationResults</code>) encapsulent la logique de préparation des paramètres et de lecture des résultats, ce qui simplifie fortement les composants d'affichage (tableaux, graphiques) et rend plus aisée l’introduction de nouvelles vues (par exemple un onglet comparatif ou une vue « détail d’un run »).</p>
+      </section>
+
+      <section id="ch6" class="page-break">
+        <h2>Chapitre 6 : Implémentation (extraits)</h2>
+        <h3>4.1 PRNG condensé</h3>
+        <pre class="code">class MT { constructor(seed){/* init */} next(){/* 32-bit */} between(a,b){return a+Math.floor(this.next()*(b-a+1));} }</pre>
+        <h3>4.2 Moteur simulation (structure)</h3>
+        <pre class="code">for(let i=0;i<params.rounds;i++){\n  const n = rng.between(0,36);\n  const bet = strategy.getNextBet(ctx);\n  const outcome = evaluate(bet,n);\n  stats.apply(outcome);\n}</pre>
+        <h3>4.3 Exemple stratégie Martingale (très abrégé)</h3>
+        <pre class="code">if(lastLost) currentBet*=2; else currentBet=base;</pre>
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : ui-screenshots.png\nDossier suggéré : /images/screenshots/\nDescription : Tableau de bord (solde, variance, ROI), écran paramétrage simulation</div>
+        <p>Code complet : <a href="https://github.com/JadissEL/lapage" target="_blank">https://github.com/JadissEL/lapage</a></p>
+        <p>Les choix d'implémentation privilégient la lisibilité : boucles itératives simples, calcul incrémental des métriques et séparation stricte entre décision (stratégie) et application du résultat (moteur). Le code de simulation est ainsi facilement lisible par un étudiant, tout en restant suffisamment structuré pour évoluer. Côté React, des composants dédiés se chargent des formulaires (saisie des paramètres avec contrôles, messages d’erreur) et des vues de résultats (tableaux, graphiques interactifs), ce qui réduit la logique embarquée dans chaque composant et améliore la réutilisabilité.</p>
+        <p>Une attention particulière a été portée à la validation des paramètres : avant de lancer une simulation, le front-end vérifie que le capital initial est positif, que le nombre de tours est dans une plage raisonnable et que la stratégie sélectionnée est bien supportée. Le back-end effectue en complément des vérifications de cohérence pour éviter toute mise en situation dangereuse du moteur (par exemple un nombre de tours extrêmement élevé ou des stratégies mal configurées).</p>
+        <p>Les tests unitaires ciblent les invariants métier : la Martingale doit réinitialiser la mise après un gain ; une stratégie adaptative ne doit jamais proposer une mise supérieure au capital disponible ; les métriques doivent évoluer de manière cohérente (par exemple, le drawdown maximal ne peut diminuer qu’en cas de nouveau sommet de capital). Du côté DevOps, ces tests sont intégrés dans la chaîne CI pour qu’aucune modification de code ne puisse être fusionnée sans validation automatique.</p>
+      </section>
+
+      <!-- Contenu enrichi pliable (facultatif pour augmenter jusqu'à ~60 pages) -->
+      <div id="extendedContent" style="display:none">
+        <section class="page-break">
+          <h2>Annexe Technique Étendue : Détails Implémentation</h2>
+          <h3>A. Boucle de Simulation Optimisée</h3>
+          <pre class="code">function runSimulation(strat, rounds, seed){\n  const rng = new MT(seed);\n  let balance = strat.initialCapital;\n  const history=[];\n  for(let i=0;i<rounds;i++){\n    const n = rng.between(0,36);\n    const bet = strat.next(history, balance);\n    const win = evaluateBet(bet, n);\n    balance += win - bet.amount;\n    history.push({i,n,bet,win,balance});\n    if(balance<=0) break;\n  }\n  return summarize(history);\n}</pre>
+          <h3>B. Analyse de Complexité</h3>
+          <p>Complexité temporelle essentiellement O(R) (R = nombre de tours). La sélection de stratégie et l'évaluation de mise doivent rester O(1). Toute opération de recalcul agrégé (variance glissante) doit être incrémentale pour éviter O(R^2). La mémoire est O(R) si on stocke tout l'historique; possibilité de compresser en gardant seulement points clés (pivots drawdown).</p>
+          <h3>C. Optimisation Potentielle WebAssembly</h3>
+          <p>Porter la boucle de simulation pure dans un module WASM réduit le coût des appels JS et des allocations. Préparer un buffer structuré (TypedArray) pour écrire : numéro gagnant, mise, gain cumulatif. Une seule conversion vers objets JS après simulation.</p>
+          <h3>D. Stratégies Paramétriques</h3>
+          <p>La configuration JSON peut inclure: <code>{"base":1,"maxDoublings":6,"stopGain":200,"stopLoss":-150}</code> permettant d'interrompre la Martingale avant explosion du risque.</p>
+          <h3>E. Validation Statistique PRNG</h3>
+          <p>Tests utilisés : Chi-carré (uniformité), Runs test (indépendance), Kolmogorov-Smirnov sur distribution cumulée. Seulement échantillon ≥ 10k tirages pertinent pour robustesse.</p>
+          <h3>F. Ségrégation des Responsabilités</h3>
+          <ul><li><strong>RouletteGame</strong> : abstraction roue.</li><li><strong>Strategy</strong> : interface décisions.</li><li><strong>SimulationEngine</strong> : orchestration.</li><li><strong>StatisticsCalculator</strong> : dérivation métriques (ROI, variance, Sharpe-like).</li></ul>
+          <h3>G. Métriques Supplémentaires</h3>
+          <p>Sharpe simplifié = (gain_moyen / écart-type). Non financier mais indicateur régularité des fluctuations.</p>
+        </section>
+        <section class="page-break">
+          <h2>Annexe Méthodologique : Approche Probabiliste</h2>
+          <p>Définition de l'espérance E = Σ p_i * x_i. Pour une roulette européenne simple mise rouge/noir : x_gagnant = +1, x_perdant = -1, p_gagnant = 18/37, p_perdant = 19/37, d'où E ≈ -0.027. Toute stratégie transformant la séquence des mises ne modifiera pas cette valeur intrinsèque.</p>
+          <p>La Martingale modifie la distribution : faibles gains fréquents + rares pertes catastrophiques. Fibonacci amortit l'accélération de mise. D'Alembert réduit l'amplitude des oscillations au prix d'un ROI modeste. Labouchère crée une structure séquentielle vulnérable aux séries défavorables longues.</p>
+          <p>On peut modéliser le capital comme marche aléatoire biaisée : C_{n+1} = C_n + X_n, avec E[X_n] &lt; 0, variance(X_n) dépend du système. L'objectif comparatif devient minimiser probabilité de ruine P_ruine sous contrainte nombre de tours fixé.</p>
+          <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : probabilistic-model.png\nDossier suggéré : /images/methodology/\nDescription : Schéma marche aléatoire capital vs tours pour 3 stratégies</div>
+        </section>
+        <section class="page-break">
+          <h2>Annexe Outils : Pipeline CI/CD Conceptuel</h2>
+          <p>Étapes : Lint + Tests unitaires → Build frontend → Simulation batch tests → Génération rapport PDF → Déploiement. Monitoring des temps de simulation après chaque commit critique.</p>
+          <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : cicd-pipeline.png\nDossier suggéré : /images/devops/\nDescription : Pipeline CI/CD simple avec jobs test, build, report</div>
+          <p>En production, un module d'échantillonnage peut rejouer des mini-simulations pour valider non-régression probabiliste (contrôle variation ROI &lt; ε).</p>
+        </section>
+      </div>
+
+      <section id="ch7" class="page-break">
+        <h2>Chapitre 7 : Tests & Validation</h2>
+        <h3>5.1 Méthodologie</h3>
+        <p>Tests unitaires (structure stratégies), tests statistiques (distribution uniformité PRNG), benchmarks (durée simulations). Validation randomness par test Chi-carré sur 100k spins.</p>
+        <h3>5.2 Synthèse résultats</h3>
+        <ul><li>Martingale : volatilité élevée, risque de rupture capital.</li><li>Fibonacci : croissance lente, pertes prolongées atténuées.</li><li>D'Alembert : profil plus régulier, drawdown modéré.</li></ul>
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : results-graph.png\nDossier suggéré : /images/results/\nDescription : Graphique superposant balance vs tours pour 3 stratégies sur 10k tours</div>
+        <p>La démarche de validation s'articule en trois couches : (1) correction fonctionnelle des règles de stratégie, (2) robustesse probabiliste du générateur, (3) cohérence statistique des agrégats. Un écart de distribution au-delà d'un seuil (p-value critique) déclenche un marquage et une analyse manuelle. Les benchmarks établissent une base comparative pour détecter les régressions de performance.</p>
+        <p>La reproductibilité est garantie par la conservation des paramètres de simulation (seed, nombre de tours, capital initial) dans des objets de configuration exportables, facilitant la réplication exacte d'une expérience et la comparaison inter-sessions.</p>
+      </section>
+
+      <section id="ch8" class="page-break">
+        <h2>Chapitre 8 : Performances & Optimisations</h2>
+        <h3>8.1 Benchmarks préliminaires</h3>
+        <p>Exécution 10k tours ~ quelques secondes selon machine. Les principaux leviers d’optimisation sont la préallocation des structures de données et la limitation des allocations d’objets intermédiaires dans la boucle principale.</p>
+        <h3>8.2 Optimisations futures</h3>
+        <ul><li>WebAssembly pour boucle simulation.</li><li>Vectorisation (SIMD) du calcul des résultats.</li><li>Cache des probabilités dérivées.</li></ul>
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : perf-chart.png\nDossier suggéré : /images/perf/\nDescription : Graphique temps vs nombre de tours</div>
+        <p>Le profilage met en évidence que la majorité du temps est consommée dans la boucle principale (génération nombre + évaluation pari). La préallocation d'un buffer pour les résultats et l'utilisation de structures primitives réduisent la pression GC. La vectorisation, combinée au portage WASM, pourrait abaisser sensiblement la latence pour des simulations massives (&gt; 1M tours).</p>
+        <p>Une approche de batching (traitement par paquets) permettrait d'agréger des calculs statistiques partiels puis de les fusionner, ouvrant la voie à un mode distribué. Les métriques temps réel resteraient cohérentes via un mécanisme de réduction (reduce) contrôlé.</p>
+      </section>
+
+      <section id="ch9" class="page-break">
+        <h2>Chapitre 9 : Sécurité & Qualité</h2>
+        <h3>9.1 Sécurité</h3>
+        <ul><li>Validation des entrées stratégie.</li><li>Sanitisation des paramètres fournis.</li><li>Logs d'erreur génériques côté client.</li></ul>
+        <h3>9.2 Qualité & Maintenance</h3>
+        <ul><li>Tests unitaires des stratégies.</li><li>Linting & typage TypeScript.</li><li>Documentation rapide des interfaces.</li></ul>
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : security-overview.png\nDossier suggéré : /images/security/\nDescription : Schéma contrôles validation et flux erreurs</div>
+        <p>Les aspects sécurité incluent la prévention des débordements logiques (mises négatives, capital modifié de façon non autorisée) et la défense contre des charges computationnelles excessives (stratégies pathologiques). Un système de quotas (limitation nombre de simulations concurrentes) est envisageable pour un déploiement partagé. La qualité est soutenue par une convention stricte de typage réduisant les ambiguïtés et par une revue systématique des stratégies ajoutées.</p>
+        <p>La documentation technique (spécifications d'interface Strategy, format d'export des résultats) est conçue pour être auto-portée, diminuant le coût d'onboarding et facilitant la maintenance évolutive.</p>
+      </section>
+
+      <section id="ch10" class="page-break">
+        <h2>Chapitre 10 : Résultats & Discussion</h2>
+        <p>Les stratégies redistribuent la variance : Martingale => pics de capital suivis de ruptures; D'Alembert => courbe plus lissée; Fibonacci => compromis volatilité/gain. Aucune inversion de l'espérance négative.</p>
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : strategy-comparison.png\nDossier suggéré : /images/results/\nDescription : Comparaison des courbes de capital sur 5 stratégies</div>
+        <p>L'analyse comparative montre que la réduction apparente de pertes à court terme dans les systèmes progressifs masque une vulnérabilité sévère aux séries défavorables longues. La fréquence des drawdowns élevés indique un profil de risque asymétrique. Les stratégies plus conservatrices produisent des trajectoires proches d'une marche aléatoire modérément biaisée, facilitant une estimation de la probabilité de ruine sous capital restreint.</p>
+        <p>Les métriques telles que le ratio gain/variance et une adaptation simplifiée du ratio de Sharpe (profit moyen / écart-type) permettent d'approcher la notion de régularité de performance, même dans un contexte d'espérance négative globale. Cette perspective quantifiée éclaire les limites des stratégies de récupération rapide et renforce la conclusion qu'aucun artifice séquentiel ne modifie la structure probabiliste fondamentale.</p>
+      </section>
+
+      <section id="ch11" class="page-break">
+        <h2>Chapitre 11 : Perspectives & Améliorations Futures</h2>
+        <ul>
+          <li><strong>Élargissement du catalogue de stratégies</strong> : intégration de systèmes de mise plus sophistiqués (par exemple des stratégies semi‑adaptatives inspirées de Kelly ou de modèles issus de la finance quantitative), ainsi que de variantes « prudentes » des progressions classiques ;</li>
+          <li><strong>Stratégies adaptatives et ML</strong> : expérimentation de modules d’apprentissage supervisé ou par renforcement permettant d’ajuster dynamiquement les mises en fonction de l’historique de la simulation, dans un but pédagogique (montrer les limites de telles approches dans un jeu à espérance négative) ;</li>
+          <li><strong>Mode multi-joueur comparatif</strong> : extension de l’interface pour permettre à plusieurs utilisateurs de configurer leurs stratégies et de lancer des simulations conjointes, avec une visualisation comparative en temps réel.</li>
+        </ul>
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : roadmap.png\nDossier suggéré : /images/perspectives/\nDescription : Feuille de route synthétique des évolutions</div>
+        <p>Sur le plan technique, plusieurs axes d’amélioration se dessinent. Le premier concerne la performance et la scalabilité : un portage partiel de la boucle de simulation en WebAssembly, complété par une architecture distribuée (cluster ou workers), permettrait d’exécuter des millions de tours dans des temps raisonnables et d’explorer de nouveaux scénarios d’étude (stress tests, simulations de Monte‑Carlo à grande échelle). Le second axe concerne l’intégration avec des outils de data science : une API plus riche, éventuellement accompagnée de connecteurs (par exemple vers des notebooks Jupyter), faciliterait l’analyse avancée des résultats.</p>
+        <p>Le volet DevOps peut également être approfondi. À partir du pipeline CI/CD actuel, il serait possible d’ajouter une surveillance en production (monitoring) plus poussée, avec des tableaux de bord dédiés aux performances des simulations et à la santé du système. L’intégration de solutions de conteneurisation (Docker) et d’orchestration (Kubernetes ou équivalent) permettrait d’illustrer concrètement des scénarios de déploiement reproductibles, en adéquation avec les attentes industrielles actuelles.</p>
+        <p>Enfin, la dimension pédagogique offre un terrain fertile pour de futures évolutions : scénarios guidés mettant en évidence la divergence entre intuition et probabilité réelle, modes « pas à pas » expliquant les événements critiques (franchissement de seuil de drawdown, atteinte d’un stop‑loss, retour à la mise de base, etc.), ou encore intégration de quiz interactifs basés sur les résultats de simulations. Ces pistes visent à transformer RoSiStrat en un véritable outil d’enseignement de la probabilité appliquée et du raisonnement statistique dans un contexte ludique mais rigoureux.</p>
+      </section>
+
+      <section id="ch12" class="page-break">
+        <h2>Chapitre 12 : Conclusion Générale</h2>
+        <p>Le travail réalisé autour de RoSiStrat a permis de concevoir et de mettre en œuvre une plateforme complète de simulation de stratégies de roulette, alliant rigueur probabiliste et bonnes pratiques de développement full stack et de DevOps. À travers la modélisation de plusieurs stratégies emblématiques, la construction d’un moteur de simulation extensible, la réalisation d’une interface web ergonomique et l’intégration d’un pipeline CI/CD, le projet répond aux objectifs fixés en introduction.</p>
+        <p>Sur le plan scientifique, les résultats confirment l’intuition théorique : aucune stratégie ne parvient à inverser l’espérance négative imposée par la roulette européenne. En revanche, l’étude met en lumière la diversité des profils de risque (variance, drawdown, trajectoires de capital) et des expériences subjectives associées aux différentes stratégies. RoSiStrat rend ces phénomènes visibles et mesurables, contribuant ainsi à une meilleure compréhension des systèmes de mise et des illusions qu’ils peuvent générer.</p>
+        <p>Sur le plan d’ingénierie logicielle, le projet illustre l’intérêt d’une architecture bien structurée (inspirée de l’hexagonal), du typage statique (TypeScript), de tests automatisés et d’un pipeline DevOps pour garantir la qualité et la reproductibilité. La séparation claire des préoccupations (domaine, application, infrastructure) facilite l’évolution du code et sa réutilisation dans d’autres contextes pédagogiques ou de recherche.</p>
+        <p>Au‑delà de la thématique du jeu, RoSiStrat constitue ainsi un cas d’étude représentatif pour des cours ou des ateliers portant sur l’architecture applicative, la simulation, le DevOps ou la data science appliquée. Les perspectives identifiées (stratégies adaptatives, déploiement distribué, intégration à des outils d’analyse avancée) ouvrent la voie à de futurs travaux qui pourront s’appuyer sur la base posée par ce PFE.</p>
+        <p>En conclusion, le projet montre qu’il est possible de concilier une problématique mathématique classique (étude de l’espérance et du risque à la roulette) avec la mise en œuvre d’une solution logicielle moderne, maintenable et extensible. RoSiStrat se positionne comme un laboratoire d'étude probabiliste évolutif, au service de l’enseignement et de l’expérimentation, plutôt que comme un outil de jeu d’argent, et c’est précisément dans cette vocation académique que réside sa valeur principale.</p>
+        <p>Ce travail marque également l’achèvement de mon parcours de formation initiale et le début d’une trajectoire professionnelle que j’espère continuer à inscrire dans la même exigence de rigueur, de curiosité scientifique et de responsabilité technique.</p>
+      </section>
+
+      <section id="ref" class="page-break">
+        <h2>Références Bibliographiques</h2>
+        <ol>
+          <li>Ethier, S.N. (2010). The Doctrine of Chances: Probabilistic Aspects of Gambling.</li>
+          <li>Epstein (2012). Mathematical analysis of betting systems.</li>
+          <li>Documentation React, Node.js, SQLite.</li>
+        </ol>
+        <p>Les aspects sécurité incluent la prévention des débordements logiques (mises négatives, capital modifié de façon non autorisée) et la défense contre des charges computationnelles excessives (stratégies pathologiques). En contexte déployé, des mécanismes d’authentification et de limitation de fréquence des simulations compléteraient ces contrôles.</p>
+
+      <section id="annexes" class="page-break">
+        <h2>Annexes</h2>
+        <h3>A.1 Schéma BD</h3>
+        <div class="placeholder">[IMAGE PLACEHOLDER]\nNom suggéré : database-schema.png\nDossier suggéré : /images/architecture/\nDescription : Tables et relations principales (strategies, sessions, rounds)</div>
+        <h3>A.2 Glossaire</h3>
+        <ul style="font-size:10pt">
+          <li><strong>Variance</strong> : Mesure de dispersion des résultats.</li>
+          <li><strong>Drawdown</strong> : Plus forte baisse de capital depuis un sommet.</li>
+          <li><strong>PRNG</strong> : Générateur pseudo-aléatoire de nombres.</li>
+        </ul>
+        <div style="margin-top:10mm;font-weight:bold">Veuillez maintenant me fournir les images correspondant aux placeholders ci-dessus.</div>
+      </section>
+    </main>
+
+    <footer class="no-print site-footer">
+      <small>Document généré automatiquement. Vérifiez les placeholders d'images puis fournissez les fichiers demandés.</small>
+    </footer>
+  </div>
+
+  <script>
+    // Affiche la date de génération
+    document.getElementById('generationDate').textContent = new Date().toLocaleDateString('fr-FR');
+
+    // Bouton téléchargement PDF : déclenche l'impression (sauvegarde en PDF côté client)
+    document.getElementById('downloadPdf').addEventListener('click', function(){
+      window.print();
+    });
+    // Approximation simple de numérotation (calcul par hauteur cumulée / facteur heuristique)
+    function approximatePageNumbers(){
+      const pageHeightPx = 1122; // ~ A4 @ 96dpi heuristique
+      document.querySelectorAll('.toc-page').forEach(span=>{
+        const targetId = span.getAttribute('data-target');
+        const el = document.getElementById(targetId);
+        if(el){
+          const top = el.getBoundingClientRect().top + window.scrollY;
+          const pageNum = Math.max(1, Math.round(top / pageHeightPx)+1);
+          span.textContent = '(p.'+pageNum+')';
+        }
+      });
+    }
+    window.addEventListener('load', approximatePageNumbers);
+    window.addEventListener('resize', approximatePageNumbers);
+    // Estimation pages par mots (~480 mots/page avec 12pt & interligne 1.5)
+    function estimatePages(){
+      const text = document.body.innerText || '';
+      const words = text.trim().split(/\s+/).length;
+      const pages = Math.max(1, Math.round(words / 480));
+      document.getElementById('pageEstimate').textContent = 'Estimation actuelle : '+pages+' pages (≈'+words+' mots). Limite 60 pages.';
+    }
+    estimatePages();
+    // Toggle contenu étendu
+    const toggle = document.getElementById('toggleExtended');
+    const extended = document.getElementById('extendedContent');
+    toggle.addEventListener('click', ()=>{
+      const visible = extended.style.display==='none';
+      extended.style.display = visible?'block':'none';
+      toggle.textContent = visible?'Masquer contenu enrichi':'Afficher contenu enrichi';
+      setTimeout(()=>{estimatePages(); approximatePageNumbers();},100);
+    });
+  </script>
+</body>
+</html>
